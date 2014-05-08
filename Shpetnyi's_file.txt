@@ -68,3 +68,23 @@ public class AnotherStackPanel : Panel
         return finalSize;
     }
 }
+
+Striking a Balance
+We have a few forces in play:
+
+We want nice architecture so the code is easier to understand over the lifetime of the project.
+We want fast runtime performance.
+We want to get today’s features done quickly.
+I think it’s interesting that these are all really about some kind of speed: our long-term development speed, the game’s execution speed, and our short-term development speed.
+These goals are at least partially in opposition. Good architecture improves productivity over the long term, but maintaining it means every change requires a little more effort to keep things clean.
+
+The implementation that’s quickest to write is rarely the quickest to run. Instead, optimization takes significant engineering time. Once it’s done, it tends to calcify the codebase: highly optimized code is inflexible and very difficult to change.
+
+There’s always pressure to get today’s work done today and worry about everything else tomorrow. But if we cram in features as quickly as we can, our codebase will become a mess of hacks, bugs, and inconsistencies that saps our future productivity.
+
+There’s no simple answer here, just trade-offs. From the email I get, this disheartens a lot of people. Especially for novices who just want to make a game, it’s intimidating to hear, “There is no right answer, just different flavors of wrong.”
+
+But, to me, this is exciting! Look at any field that people dedicate careers to mastering, and in the center you will always find a set of intertwined constraints. After all, if there was an easy answer, everyone would just do that. A field you can master in a week is ultimately boring. You don’t hear of someone’s distinguished career in ditch digging.
+
+Maybe you do; I didn’t research that analogy. For all I know there could be avid ditch digging hobbyists, ditch digging conventions, and a whole subculture around it. Who am I to judge?
+In fact, to me this has much in common with games themselves. A game like chess can never be mastered because all of the pieces are so perfectly balanced against one another. This means you can spend your life exploring the vast space of viable strategies. A poorly designed game collapses to the one winning tactic played over and over until you get bored and quit.
