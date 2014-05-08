@@ -1,1 +1,70 @@
 created first and commited
+
+public class AnotherStackPanel : Panel
+{
+    public static readonly DependencyProperty OrientationProperty =
+        DependencyProperty.Register(“Orientation”, typeof(Orientation),
+        typeof(SimpleStackPanel), new FrameworkPropertyMetadata(
+        Orientation.Vertical, FrameworkPropertyMetadataOptions.AffectsMeasure));
+
+    public Orientation Orientation
+    {
+        get { return (Orientation)GetValue(OrientationProperty); }
+        set { SetValue(OrientationProperty, value); }
+    }
+
+    protected override Size MeasureOverride(Size availableSize)
+    {
+        Size desiredSize = new Size();
+
+        if (Orientation == Orientation.Vertical)
+            availableSize.Height = Double.PositiveInfinity;
+        else
+            availableSize.Width = Double.PositiveInfinity;
+        foreach (UIElement child in this.Children)
+        {
+            if (child != null)
+            {
+                child.Measure(availableSize);
+
+                if (Orientation == Orientation.Vertical)
+                {
+                    desiredSize.Width = Math.Max(desiredSize.Width,
+                    child.DesiredSize.Width);
+                    desiredSize.Height += child.DesiredSize.Height;
+                }
+                else
+                {
+                    desiredSize.Height = Math.Max(desiredSize.Height,
+                    child.DesiredSize.Height);
+                    desiredSize.Width += child.DesiredSize.Width;
+                }
+            }
+        }
+        return desiredSize;
+    }
+
+    protected override Size ArrangeOverride(Size finalSize)
+    {
+        double offset = 0;
+        foreach (UIElement child in this.Children)
+        {
+            if (child != null)
+            {
+                if (Orientation == Orientation.Vertical)
+                {               
+                    child.Arrange(new Rect(0, offset, finalSize.Width,
+                    child.DesiredSize.Height));                 
+                    offset += child.DesiredSize.Height;
+                }
+                else
+                {                   
+                    child.Arrange(new Rect(offset, 0, child.DesiredSize.Width,
+                    finalSize.Height));
+                    offset += child.DesiredSize.Width;
+                }
+            }
+        }
+        return finalSize;
+    }
+}
